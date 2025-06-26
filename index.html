@@ -9,7 +9,11 @@
 <body>
   <h1>Trapeatry</h1>
 <h2>Food Specials</h2>
- <div class="dropdown">
+  <div id="product-list">
+    <input type="text" id="product-name" placeholder="Product Name">
+    <input type="number" id="product-price" placeholder="Product Price">
+    <button id="add-product">Add Product</button>
+    <div class="dropdown">
   <button onclick="myFunction()" class="dropbtn">Dropdown</button>
   <div id="myDropdown" class="dropdown-content">
     <a href="#">Link 1</a>
@@ -17,6 +21,7 @@
     <a href="#">Link 3</a>
   </div>
 </div>
+
   </div>
 <h2> Your Cart</h2>
   <ul id="cart-list"></ul>
