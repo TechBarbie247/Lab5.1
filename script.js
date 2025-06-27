@@ -63,8 +63,8 @@ function updateQuantity(productId , newQuantity) {
     updateCartView();
 }
 function updateCartView() {
- const cartList = document.getElementById(cartlist);
- const totalPriceElement = document.getElementById(total-price);
+ const cartList = document.getElementById ("cart-list");
+ const totalPriceElement = document.getElementById("total-price");
  cartList.innerHTML = '';
   
  let total = 0;
@@ -84,3 +84,7 @@ function updateCartView() {
 }
 
 
+function removeCart(productId) {
+    cart = cart.filter(item => item.id !== productId);
+    updateCartView();
+}
