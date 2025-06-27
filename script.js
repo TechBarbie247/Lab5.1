@@ -6,6 +6,27 @@ const products = [
 
 let cart = [];
 
+document.getElementById('add-product').addEventListener('click' , () => {
+    const name = document.getElementById('product-name').value;
+    const price = parseFloat(document.getElementById('product-price').value);
+    if (name && !isNaN (price)) {
+        const newProduct = {
+           id: products.length + 1,
+           name,
+           price 
+        };
+        products.push(newProduct);
+        const div = document.createElement('div');
+        div.innerHTML = `
+        <strong>${newProduct.name}</strong> - $${newProduct.price}
+        <button onclick="addCart(${newProduct.id})">Add to Cart</button>
+        `;
+        document.getElementById(`product-list`).appendChild(div);
+        document.getElementById(`product-name`).value ='';
+        document.getElementById(`product-price`).value ='';
+    }
+});
+
 function addCart(productId, quantity = 1) {
     const product =products.find(p => p.id === productId);
     if (!product) return;
@@ -41,3 +62,25 @@ function updateQuantity(productId , newQuantity) {
     }
     updateCartView();
 }
+function updateCartView() {
+ const cartList = document.getElementById(cartlist);
+ const totalPriceElement = document.getElementById(total-price);
+ cartList.innerHTML = '';
+  
+ let total = 0;
+
+ cart.forEach(item => {
+    const li = document.createElement('li');
+    li.innerHTML = `
+      ${item.name} - $${item.price} x 
+      <input type="number" value="${item.quantity}" min="1" onchange="updateQuantity(${item.id}, this.value)">
+      <button onclick="removeFromCart(${item.id})">Remove</button>
+    `;
+    cartList.appendChild(li);
+    total += item.price * item.quantity;
+  });
+
+  totalPriceElement.textContent = total.toFixed(2);
+}
+
+
