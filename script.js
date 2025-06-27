@@ -55,11 +55,17 @@ function viewCart() {
 function updateQuantity(productId , newQuantity) {
     const item = cart.find(item => item.id === productId);
     if (item) {
-        item.quantity = newQuantity;
+        item.quantity = parseInt(newQuantity);
         if (item.quantity <= 0) {
             removeFromCart(productId);
         }
     }
+    updateCartView();
+
+}
+
+function removeFromCart(productId) {
+    cart = cart.filter(item => item.id !== productId);
     updateCartView();
 }
 function updateCartView() {
@@ -71,7 +77,7 @@ function updateCartView() {
 
  cart.forEach(item => {
     const li = document.createElement('li');
-    li.innerHTML = `
+    li.innerHTML = `'
       ${item.name} - $${item.price} x 
       <input type="number" value="${item.quantity}" min="1" onchange="updateQuantity(${item.id}, this.value)">
       <button onclick="removeFromCart(${item.id})">Remove</button>
@@ -81,10 +87,4 @@ function updateCartView() {
   });
 
   totalPriceElement.textContent = total.toFixed(2);
-}
-
-
-function removeCart(productId) {
-    cart = cart.filter(item => item.id !== productId);
-    updateCartView();
 }
